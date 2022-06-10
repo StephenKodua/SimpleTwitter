@@ -5,9 +5,11 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,6 +29,10 @@ import java.util.List;
 import okhttp3.Headers;
 
 public class TimelineActivity extends AppCompatActivity {
+    private SwipeRefreshLayout swipeContainer;
+    SwipeRefreshLayout swipeLayout;
+
+
     public static final String TAG = "TimelineActivity";
     private static final int RESULT_CODE = 20 ;
     TwitterClient client;
@@ -34,11 +40,13 @@ public class TimelineActivity extends AppCompatActivity {
     List<Tweet> tweets;
     TweetsAdapter adapter;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
-
+        swipeContainer = findViewById(R.id.swipeContainer);
         client = TwitterApp.getRestClient(this);
 
         //Find the recycler view
@@ -49,10 +57,42 @@ public class TimelineActivity extends AppCompatActivity {
         //Recycler view setup: layout manager and the adapter
         rvTweets.setLayoutManager(new LinearLayoutManager(this));
         rvTweets.setAdapter(adapter);
+
         populateHomeTimeline();
+
+        swipeLayout = findViewById(R.id.swipeContainer);
+        // Adding Listener
+        swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Your code here
+                Toast.makeText(getApplicationContext(), "Works!", Toast.LENGTH_LONG).show();
+                // To keep animation for 4 seconds
+                new Handler().postDelayed(new Runnable() {
+                    @Override public void run() {
+                        // Stop animation (This will be after 3 seconds)
+                        swipeLayout.setRefreshing(false);
+                    }
+                }, 4000); // Delay in millis
+            }
+        });
+
+        // Scheme colors for animation
+        swipeLayout.setColorSchemeColors(
+                getResources().getColor(android.R.color.holo_blue_bright),
+                getResources().getColor(android.R.color.holo_green_light),
+                getResources().getColor(android.R.color.holo_orange_light),
+                getResources().getColor(android.R.color.holo_red_light)
+        );
+
+        // Configure the refreshing colors
+        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
     }
 
-    @Override
+        @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         //Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -84,9 +124,22 @@ public class TimelineActivity extends AppCompatActivity {
             adapter.notifyItemInserted(0);
             rvTweets.smoothScrollToPosition(0);
 
-
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    public void fetchTimelineAsync(int page) {
+        populateHomeTimeline();
+        adapter.clear();
+        // ...the data has come back, add new items to your adapter...
+        adapter.addAll(tweets);
+        // Now we call setRefreshing(false) to signal refresh has finished
+        swipeContainer.setRefreshing(false);
+
+        // Send the network request to fetch the updated data
+        // `client` here is an instance of Android Async HTTP
+        // getHomeTimeline is an example endpoint.
+
     }
 
     private void populateHomeTimeline() {
