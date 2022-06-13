@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,11 +27,23 @@ public class ComposeActivity extends AppCompatActivity {
     public static final int MAX_TWEET_LENGTH = 140;
     EditText etCompose;
     Button btnTweet;
+    MenuItem miActionProgressItem;
 
     TwitterClient client;
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        miActionProgressItem = menu.findItem(R.id.miActionProgressItem);
+        return super.onPrepareOptionsMenu(menu);
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.progress_bar, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compose);
@@ -57,20 +71,22 @@ public class ComposeActivity extends AppCompatActivity {
                 client.publishTweet(tweetContent, new JsonHttpResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, Headers headers, JSON json) {
-                        Log.e(TAG, "onSuccess to publish tweet");
+                        Log.i(TAG, "onSuccess to publish tweet");
                         try {
                             Tweet tweet = Tweet.fromJson(json.jsonObject);
-                            Log.i(TAG, "Published tweet says: " + tweet.body);
+                            Log.i(TAG, "Published tweet says: " + tweet);
                             Intent intent = new Intent();
                             //tweet model into a Parcel wrap to handled by intent extra
                             intent.putExtra("tweet", Parcels.wrap(tweet));
                             setResult(RESULT_OK, intent);
+                            miActionProgressItem.setVisible(false);
                             //closes the activity, pass data to parent
                             finish();
                         } catch (JSONException e) {
                             e.printStackTrace();
-                        }
+                            miActionProgressItem.setVisible(false);
 
+                        }
                     }
 
                     @Override
@@ -79,9 +95,7 @@ public class ComposeActivity extends AppCompatActivity {
 
                     }
                 });
-
             }
         });
-
     }
 }

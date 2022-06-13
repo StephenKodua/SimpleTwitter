@@ -30,8 +30,6 @@ import okhttp3.Headers;
 
 public class TimelineActivity extends AppCompatActivity {
     private SwipeRefreshLayout swipeContainer;
-    SwipeRefreshLayout swipeLayout;
-
 
     public static final String TAG = "TimelineActivity";
     private static final int RESULT_CODE = 20 ;
@@ -46,9 +44,15 @@ public class TimelineActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
-        swipeContainer = findViewById(R.id.swipeContainer);
-        client = TwitterApp.getRestClient(this);
+        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                fetchTimelineAsync(0);
+            }
+        });
 
+        client = TwitterApp.getRestClient(this);
         //Find the recycler view
         rvTweets = findViewById(R.id.rvTweets);
         //Init the list of tweets and adapter
@@ -60,39 +64,27 @@ public class TimelineActivity extends AppCompatActivity {
 
         populateHomeTimeline();
 
-        swipeLayout = findViewById(R.id.swipeContainer);
-        // Adding Listener
-        swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+    }
+
+    public void fetchTimelineAsync(int page) {
+        client.getHomeTimeline(new JsonHttpResponseHandler() {
             @Override
-            public void onRefresh() {
-                // Your code here
-                Toast.makeText(getApplicationContext(), "Works!", Toast.LENGTH_LONG).show();
-                // To keep animation for 4 seconds
-                new Handler().postDelayed(new Runnable() {
-                    @Override public void run() {
-                        // Stop animation (This will be after 3 seconds)
-                        swipeLayout.setRefreshing(false);
-                    }
-                }, 4000); // Delay in millis
+            public void onSuccess(int statusCode, Headers headers, JSON json) {
+                adapter.clear();
+                populateHomeTimeline();
+                swipeContainer.setRefreshing(false);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+                Log.d("DEBUG", "Fetch timeline error");
+
             }
         });
 
-        // Scheme colors for animation
-        swipeLayout.setColorSchemeColors(
-                getResources().getColor(android.R.color.holo_blue_bright),
-                getResources().getColor(android.R.color.holo_green_light),
-                getResources().getColor(android.R.color.holo_orange_light),
-                getResources().getColor(android.R.color.holo_red_light)
-        );
-
-        // Configure the refreshing colors
-        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
-                android.R.color.holo_green_light,
-                android.R.color.holo_orange_light,
-                android.R.color.holo_red_light);
     }
 
-        @Override
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         //Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -107,7 +99,6 @@ public class TimelineActivity extends AppCompatActivity {
             Intent intent = new Intent(this, ComposeActivity.class);
             startActivityForResult(intent, RESULT_CODE);
             return true;
-
         }
         return super.onOptionsItemSelected(item);
     }
@@ -115,31 +106,12 @@ public class TimelineActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == RESULT_CODE && resultCode == RESULT_OK){
-            //Get data fromm intent (tweet object)
             Tweet tweet = Parcels.unwrap(data.getParcelableExtra("tweet"));
-            //Update the RV with the tweet
-            //Modify data source
-            tweets.add(0,tweet);
-            //Update the adapter
+            tweets.add(0, tweet);
             adapter.notifyItemInserted(0);
             rvTweets.smoothScrollToPosition(0);
-
         }
         super.onActivityResult(requestCode, resultCode, data);
-    }
-
-    public void fetchTimelineAsync(int page) {
-        populateHomeTimeline();
-        adapter.clear();
-        // ...the data has come back, add new items to your adapter...
-        adapter.addAll(tweets);
-        // Now we call setRefreshing(false) to signal refresh has finished
-        swipeContainer.setRefreshing(false);
-
-        // Send the network request to fetch the updated data
-        // `client` here is an instance of Android Async HTTP
-        // getHomeTimeline is an example endpoint.
-
     }
 
     private void populateHomeTimeline() {
@@ -153,7 +125,6 @@ public class TimelineActivity extends AppCompatActivity {
                     adapter.notifyDataSetChanged();
                 } catch (JSONException e) {
                     Log.e(TAG, "Json exception", e);
-                    //e.printStackTrace();
                 }
             }
 
@@ -165,6 +136,7 @@ public class TimelineActivity extends AppCompatActivity {
         });
     }
 
+
     public void onLogoutButton() {
         // forget who's logged in
         TwitterApp.getRestClient(this).clearAccessToken();
@@ -175,6 +147,5 @@ public class TimelineActivity extends AppCompatActivity {
         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // same as above
         startActivity(i);
     }
-
 
 }
