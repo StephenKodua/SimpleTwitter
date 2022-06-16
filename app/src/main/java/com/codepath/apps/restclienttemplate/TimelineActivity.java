@@ -13,6 +13,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.codepath.apps.restclienttemplate.models.Tweet;
@@ -137,7 +138,7 @@ public class TimelineActivity extends AppCompatActivity {
     }
 
 
-    public void onLogoutButton() {
+    public void onLogoutButton(View v) {
         // forget who's logged in
         TwitterApp.getRestClient(this).clearAccessToken();
 

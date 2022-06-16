@@ -66,6 +66,7 @@ public class ComposeActivity extends AppCompatActivity {
                     Toast.makeText(ComposeActivity.this, "Sorry, your tweet is too long", Toast.LENGTH_SHORT).show();
 
                 }
+
                 Toast.makeText(ComposeActivity.this, tweetContent, Toast.LENGTH_SHORT).show();
                 //Make an API call to Twitter to publish the tweet
                 client.publishTweet(tweetContent, new JsonHttpResponseHandler() {
@@ -92,6 +93,7 @@ public class ComposeActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
                         Log.e(TAG, "onFailure to publish tweet", throwable);
+                        miActionProgressItem.setVisible(false);
 
                     }
                 });
