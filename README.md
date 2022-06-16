@@ -19,7 +19,7 @@ The following **required** functionality is completed:
 * [x] User is taken back to home timeline with **new tweet visible** in timeline
 * [x] Newly created tweet should be manually inserted into the timeline and not rely on a full refresh
 * [x] User can **see a counter that displays the total number of characters remaining for tweet** that also updates the count as the user types input on the Compose tweet page
-* [x] User can **pull down to refresh tweets timeline**.
+* [x] User can **pull down to refresh tweets timeline**
 * [x] User can **see embedded image media within a tweet** on list or detail view.
 
 The following **optional** features are implemented:
