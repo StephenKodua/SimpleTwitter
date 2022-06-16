@@ -50,6 +50,7 @@ public class ComposeActivity extends AppCompatActivity {
         //hello
 
         client = TwitterApp.getRestClient(this);
+        // We added a button
 
         etCompose = findViewById(R.id.etCompose);
         btnTweet = findViewById(R.id.btnTweet);
