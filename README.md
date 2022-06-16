@@ -12,13 +12,13 @@ The following **required** functionality is completed:
 * [x] User can **view tweets from their home timeline**
 * [x] User is displayed the username, name, and body for each tweet
 * [x] User is displayed the [relative timestamp](https://gist.github.com/nesquena/f786232f5ef72f6e10a7) for each tweet "8m", "7h"
-* [ ] User can ***log out of the application** by tapping on a logout button
+* [x] User can ***log out of the application** by tapping on a logout button
 * [x] User can **compose and post a new tweet**
 * [x] User can click a “Compose” icon in the Action Bar on the top right
 * [x] User can then enter a new tweet and post this to Twitter
 * [x] User is taken back to home timeline with **new tweet visible** in timeline
 * [x] Newly created tweet should be manually inserted into the timeline and not rely on a full refresh
-* [ ] User can **see a counter that displays the total number of characters remaining for tweet** that also updates the count as the user types input on the Compose tweet page
+* [x] User can **see a counter that displays the total number of characters remaining for tweet** that also updates the count as the user types input on the Compose tweet page
 * [x] User can **pull down to refresh tweets timeline**
 * [x] User can **see embedded image media within a tweet** on list or detail view.
 
@@ -30,7 +30,7 @@ The following **optional** features are implemented:
 * [x] User that wrote the original tweet is **automatically "@" replied in compose**
 * [x] User can tap a tweet to **open a detailed tweet view**
 * [ ] User can **take favorite (and unfavorite) or retweet** actions on a tweet
-* [x] User can view more tweets as they scroll with infinite pagination
+* [] User can view more tweets as they scroll with infinite pagination
 * [ ] Compose tweet functionality is built using modal overlay
 * [ ] User can **click a link within a tweet body** on tweet details view. The click will launch the web browser with relevant page opened.
 * [ ] Replace all icon drawables and other static image assets with [vector drawables](http://guides.codepath.org/android/Drawables#vector-drawables) where appropriate.
